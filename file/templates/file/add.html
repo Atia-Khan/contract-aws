@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+
+<div class="ml40 mt40">
+  <h4 class="text-muted mb30">Upload File</h4>
+  <form method="post" novalidate enctype="multipart/form-data">
+    {% comment %} {% csrf_token %} {% endcomment %}
+
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field }}
+    {% endfor %}
+
+    <!-- Existing Tags Dropdown -->
+    <div class="form-group">
+      {{ form.existing_tags.label_tag }}
+      {% render_field form.existing_tags class="form-control" %}
+    </div>
+
+    <!-- New Tag Input -->
+    <div class="form-group">
+      {{ form.new_tag.label_tag }}
+      {% render_field form.new_tag class="form-control" %}
+    </div>
+
+<!-- Color Input for Tag -->
+<!-- Color Input for Tag -->
+<div class="form-group">
+  <label for="id_tags_0_color">Tag Color:</label>
+  <input type="color" id="id_tags_0_color" name="tags_0_color" value="{{ form.existing_tags.value.color|default:'#000000' }}" class="form-control">
+</div>
+
+
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field.label_tag }}
+
+        {% if form.is_bound %}
+          {% if field.errors %}
+            {% render_field field class="form-control is-invalid" %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% render_field field class="form-control is-valid" %}
+          {% endif %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}

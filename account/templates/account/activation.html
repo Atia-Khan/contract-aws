@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load static %}
+
+{% block subject %}
+{% blocktrans %} Account activation on {{ FRONTEND_BASE_URL }}{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %} You're receiving this email because you need to finish activation process on {{ FRONTEND_BASE_URL }}.{% endblocktrans %}
+
+{% trans "Please go to the following page to activate account:" %}
+{{ FRONTEND_BASE_URL }}/activate/{{ uid }}/{{ token }}
+
+
+{% endblock text_body %}{% block html_body %}
+<div style="background-color: #eff0f7; width: 50%; margin-left: 200px; padding: 15px;">
+  <h2 style="margin: 0; padding: 0;">{% trans "You're just one click away! " %} </h2>
+  <p style="margin: 0; padding: 0;">{% trans "Dear" %} <b>{{ user.get_username }}</b></p>
+  <p>{% trans "Thank you for joining DocuVault! To finish Signing up you just need to confirm that we got your email right." %}</p>
+  <p>{% trans "To confirm the email address. click the button below." %}</p>
+  <p style="margin-bottom: 100px">
+    <a
+      style="
+        display: inline-block;
+        padding: 10px 20px;
+        background: #019adb;        
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease-in-out;
+      "
+      href="{{ FRONTEND_BASE_URL }}/activate/{{ uid }}/{{ token }}"
+      onmouseover="this.style.background='linear-gradient(to bottom right, #37b5ff, #007acc, #006bb6)'"
+      onmouseout="this.style.background='linear-gradient(to right, #37b5ff, #007acc, #006bb6)'"
+    >
+      Activate Account
+    </a>
+  </p>
+
+  <i>{% blocktrans %}If you face difficulties in resetting account password kindly contact us on: ifrasaleemcsengineer12@gmail.com{% endblocktrans %}</i>
+</div>
+{% endblock html_body %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Update File</h2>
+  <form method="post" enctype="multipart/form-data">
+    
+    {# Render other fields excluding 'folder' #}
+    {{ form.file }}
+    {{ form.existing_tags }}
+    {{ form.new_tag }}
+
+    {% if 'folder' in form.visible_fields %}
+      <input type="hidden" name="folder" value="{{ form.instance.folder }}">
+    {% endif %}
+
+    <button type="submit">Update File</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- file/templates/file/confirm_delete_tag.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Confirm Tag Deletion</h2>
+  <p>Are you sure you want to delete the tag "{{ tag.name }}"?</p>
+  <form method="post" action="{% url 'file:delete_tag' pk=tag.pk %}">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+  </form>
+  <a href="{% url 'file:get_tags' %}">Cancel</a>
+{% endblock %}
