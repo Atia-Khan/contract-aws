@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'taggit_autosuggest',
     'folder',
     'file',
-    whitenoise.runserver_nostatic,
+    'whitenoise.runserver_nostatic',
 ]
 
 
