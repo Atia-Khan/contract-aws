@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'taggit_autosuggest',
     'folder',
     'file',
+    'whitenoise.runserver_nostatic',
 ]
 
 
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'djoserauthapi.urls'
@@ -136,7 +138,7 @@ DATABASES = {
         'NAME': 'contract',
         'USER': 'contract',
         'PASSWORD': 'xloop54321',
-        'HOST': 'database-1.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
+        'HOST': 'djangodatabase.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -269,7 +271,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+# ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 # Or * to allow all
 ALLOWED_HOSTS = ['*']
 
@@ -291,7 +293,7 @@ CSRF_COOKIE_SECURE = False
 
 AWS_ACCESS_KEY_ID = 'AKIATFEK3U2S77QDVCOM'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'contractmanage'
+AWS_STORAGE_BUCKET_NAME = 'contracts3'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_S3_FILE_OVERWRITE = False
