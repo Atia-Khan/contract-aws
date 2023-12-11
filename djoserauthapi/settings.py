@@ -132,16 +132,16 @@ WSGI_APPLICATION = 'djoserauthapi.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'contract',
-#         'USER': 'contract',
-#         'PASSWORD': 'xloop54321',
-#         'HOST': 'database-1.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'contract',
+        'USER': 'contract',
+        'PASSWORD': 'xloop54321',
+        'HOST': 'djangodatabase.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -293,7 +293,7 @@ CSRF_COOKIE_SECURE = False
 
 AWS_ACCESS_KEY_ID = 'AKIATFEK3U2S77QDVCOM'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'contractmanage'
+AWS_STORAGE_BUCKET_NAME = 'contracts3'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_S3_FILE_OVERWRITE = False
