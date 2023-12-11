@@ -1,7 +1,7 @@
 import os
 from wsgiref.util import FileWrapper
 from django.views.decorators.csrf import csrf_exempt
-from taggit.models import Tag
+# from taggit.models import Tag
 from django.http import JsonResponse
 from django.core.serializers import serialize
 from django.http import HttpResponse
@@ -19,47 +19,47 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
-from .models import ColorTag
+# from .models import ColorTag
 from folder.models import Folder
 from django.http import JsonResponse, Http404
 
-@csrf_exempt
-def create_tag(request):
-    try:
-        tag_name = request.POST.get('tag_name')
-        tag_color = request.POST.get('tag_color')
+# @csrf_exempt
+# def create_tag(request):
+#     try:
+#         tag_name = request.POST.get('tag_name')
+#         tag_color = request.POST.get('tag_color')
 
-        print(f"Received tag name: {tag_name}, color: {tag_color}")
+#         print(f"Received tag name: {tag_name}, color: {tag_color}")
 
-        if tag_name is not None and tag_name.strip():
-            tag, created = ColorTag.objects.get_or_create(name=tag_name, color=tag_color)
-            return JsonResponse({'tag': tag.name, 'color': tag.color})
-        else:
-            return JsonResponse({'error': 'Tag name cannot be null or empty'}, status=400)
-    except IntegrityError as e:
-        return JsonResponse({'error': str(e)}, status=500)
+#         if tag_name is not None and tag_name.strip():
+#             tag, created = ColorTag.objects.get_or_create(name=tag_name, color=tag_color)
+#             return JsonResponse({'tag': tag.name, 'color': tag.color})
+#         else:
+#             return JsonResponse({'error': 'Tag name cannot be null or empty'}, status=400)
+#     except IntegrityError as e:
+#         return JsonResponse({'error': str(e)}, status=500)
 
     
     
-def get_tags(request):
-    tags = ColorTag.objects.values('name','id','color')
-    return JsonResponse({'tags': list(tags)})
+# def get_tags(request):
+#     tags = ColorTag.objects.values('name','id','color')
+#     return JsonResponse({'tags': list(tags)})
 
-class TagUpdateView(UpdateView):
-    model = ColorTag
-    fields = ['name', 'color']
-    template_name = 'file/edit_tag.html'  # Create an HTML template for editing tags
-    success_url = reverse_lazy('file:get_tags')
+# class TagUpdateView(UpdateView):
+#     model = ColorTag
+#     fields = ['name', 'color']
+#     template_name = 'file/edit_tag.html'  # Create an HTML template for editing tags
+#     success_url = reverse_lazy('file:get_tags')
     
-class TagDeleteView(DeleteView):
-    model = ColorTag
-    template_name = 'file/confirm_delete_tag.html'  # Create an HTML template for confirming tag deletion
-    success_url = reverse_lazy('file:get_tags')
+# class TagDeleteView(DeleteView):
+#     model = ColorTag
+#     template_name = 'file/confirm_delete_tag.html'  # Create an HTML template for confirming tag deletion
+#     success_url = reverse_lazy('file:get_tags')
     
-class FileDeleteView(DeleteView):
-    model = File
-    template_name = 'file/confirm_delete.html'
-    success_url = reverse_lazy('file:get_tags')
+# class FileDeleteView(DeleteView):
+#     model = File
+#     template_name = 'file/confirm_delete.html'
+#     success_url = reverse_lazy('file:get_tags')
 
 
 
@@ -85,19 +85,19 @@ class FileCreateView(CreateView):
             file_instance.save()
 
             # Process existing tags
-            existing_tags = form.cleaned_data.get('existing_tags')
-            new_tag = form.cleaned_data.get('new_tag')
+        #     existing_tags = form.cleaned_data.get('existing_tags')
+        #     new_tag = form.cleaned_data.get('new_tag')
 
-            if existing_tags:
-                file_instance.tags.add(*existing_tags)
+        #     if existing_tags:
+        #         file_instance.tags.add(*existing_tags)
 
-            if new_tag:
-                tag, created = ColorTag.objects.get_or_create(name=new_tag)
-                file_instance.tags.add(tag)
+        #     if new_tag:
+        #         tag, created = ColorTag.objects.get_or_create(name=new_tag)
+        #         file_instance.tags.add(tag)
 
-            return super().form_valid(form)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+        #     return super().form_valid(form)
+        # except Exception as e:
+        #     return JsonResponse({'error': str(e)}, status=500)
     
 
 class FileListView(ListView):
@@ -115,9 +115,9 @@ class FileListView(ListView):
                 "pk": file.pk,
                 "fields": {
                     "name": file.name,
-                    "tags": [
-                        {"name": tag.name, "color": tag.color} for tag in file.tags.all()
-                    ],  # Include tags with name and color
+                    # "tags": [
+                    #     {"name": tag.name, "color": tag.color} for tag in file.tags.all()
+                    # ],  # Include tags with name and color
                     "folder": file.folder.name if file.folder else None,
                 },
             }
@@ -130,7 +130,7 @@ class FileListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         # Include tags in the queryset to avoid N+1 query issues
-        queryset = queryset.select_related('folder').prefetch_related('tags')
+        # queryset = queryset.select_related('folder').prefetch_related('tags')
         return queryset
 
     
@@ -154,18 +154,18 @@ class FileUpdateView(View):
 
         try:
             # Process existing tags
-            existing_tags = request.POST.getlist('existing_tags', [])
-            new_tag = request.POST.get('new_tag', '')
+            # existing_tags = request.POST.getlist('existing_tags', [])
+            # new_tag = request.POST.get('new_tag', '')
 
-            # If existing_tags is provided, add only the ones that already exist
-            if existing_tags:
-                existing_tags = ColorTag.objects.filter(id__in=existing_tags)
-                file_instance.tags.set(existing_tags)
+            # # If existing_tags is provided, add only the ones that already exist
+            # if existing_tags:
+            #     existing_tags = ColorTag.objects.filter(id__in=existing_tags)
+            #     file_instance.tags.set(existing_tags)
 
-            # If new_tag is provided, add it (whether it exists or not)
-            if new_tag:
-                tag_instance, created = ColorTag.objects.get_or_create(name=new_tag)
-                file_instance.tags.add(tag_instance)
+            # # If new_tag is provided, add it (whether it exists or not)
+            # if new_tag:
+            #     tag_instance, created = ColorTag.objects.get_or_create(name=new_tag)
+            #     file_instance.tags.add(tag_instance)
 
             # Process folder only if it is explicitly provided in the request body
             folder_id = request.POST.get('folder_id', None)

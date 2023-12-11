@@ -45,9 +45,9 @@
                         <span class="ml5 mr15">{{ file.name|truncatechars:17 }}</span>
                         
                         <!-- Display file tags as labels -->
-                        {% for tag in file.tags.all %}
+                        <!-- {% for tag in file.tags.all %}
                             <span class="badge badge-info">{{ tag }}</span>
-                        {% endfor %}
+                        {% endfor %} -->
                         
                         <span class="float-right">
                             <a href="{{ file.get_download_url }}"><i class="fas fa-download"></i></a>

@@ -2,15 +2,15 @@ from django.db import models
 from django.urls import reverse
 
 from folder.models import Folder
-from taggit.managers import TaggableManager
-from taggit.models import TagBase, GenericTaggedItemBase
+# from taggit.managers import TaggableManager
+# from taggit.models import TagBase, GenericTaggedItemBase
 
-class ColorTag(TagBase):
-    color = models.CharField(max_length=50, blank=True, null=True)
+# class ColorTag(TagBase):
+#     color = models.CharField(max_length=50, blank=True, null=True)
 
 # Define a custom TaggedItem model with a ForeignKey to your File model
-class ColorTaggedItem(GenericTaggedItemBase):
-    tag = models.ForeignKey(ColorTag, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_items")
+# class ColorTaggedItem(GenericTaggedItemBase):
+#     tag = models.ForeignKey(ColorTag, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_items")
 
 class File(models.Model):
     name = models.CharField(max_length=128)
@@ -18,7 +18,7 @@ class File(models.Model):
     file = models.FileField(upload_to='documents/')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
-    tags = TaggableManager(through=ColorTaggedItem)
+    # tags = TaggableManager(through=ColorTaggedItem)
 
 
     def __str__(self):
