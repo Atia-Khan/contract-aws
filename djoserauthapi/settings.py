@@ -132,16 +132,16 @@ WSGI_APPLICATION = 'djoserauthapi.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'contract',
-        'USER': 'contract',
-        'PASSWORD': 'xloop54321',
-        'HOST': 'database-1.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'contract',
+#         'USER': 'contract',
+#         'PASSWORD': 'xloop54321',
+#         'HOST': 'database-1.cnvh7lfvgfwg.eu-north-1.rds.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
